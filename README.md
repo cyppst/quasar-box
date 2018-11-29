@@ -10,3 +10,6 @@ q-box () {
 }
 
 alias qbox=q-box
+
+ docker run -d --name quasar-box -p 7484:7484 golfcomsci/quasar-box
+
