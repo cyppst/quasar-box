@@ -14,10 +14,14 @@ RUN apt-get update \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && apt-get update \
- && apt-get install nodejs npm yarn ftp-upload webhook -y \
+ && apt-get install nodejs npm yarn ftp-upload webhook wget -y \
  && yarn global add cordova@^8.0.0 \
  && apt-get clean \
- && npm install -g quasar-cli
+ && npm install -g -qq quasar-cli
+
+RUN wget https://github.com/bcicen/slackcat/releases/download/v1.5/slackcat-1.5-linux-amd64 && mv slackcat-1.5-linux-amd64 /usr/local/bin/slackcat && chmod +x /usr/local/bin/slackcat
+
+COPY ./scripts/config /root/.slackcat
 
 WORKDIR "/opt/tools"
 RUN ./entrypoint.sh built-in
